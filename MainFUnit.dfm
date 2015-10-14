@@ -2,7 +2,7 @@ object MainF: TMainF
   Left = 197
   Top = 124
   Width = 1032
-  Height = 785
+  Height = 733
   Caption = #1062#1077#1085#1086#1074#1072' '#1083#1080#1089#1090#1072' '#1085#1072' '#1087#1088#1086#1076#1091#1082#1090#1080#1090#1077' '#1085#1072' Most Computers'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -20,14 +20,14 @@ object MainF: TMainF
     Left = 0
     Top = 42
     Width = 329
-    Height = 705
+    Height = 653
     Align = alLeft
     TabOrder = 0
     object pnlG1: TPanel
       Left = 1
       Top = 47
       Width = 327
-      Height = 657
+      Height = 605
       Align = alClient
       TabOrder = 0
       TabStop = True
@@ -45,15 +45,16 @@ object MainF: TMainF
     Left = 337
     Top = 42
     Width = 679
-    Height = 705
+    Height = 653
     Align = alClient
-    TabOrder = 4
+    TabOrder = 5
     object pnlG2: TPanel
       Left = 1
       Top = 48
       Width = 677
-      Height = 656
+      Height = 604
       Align = alClient
+      Caption = 'rate'
       TabOrder = 0
       TabStop = True
     end
@@ -82,16 +83,58 @@ object MainF: TMainF
         OnClick = cbCurrencyClick
         Width = 57
       end
+      object lbMinValue: TcxLabel
+        Left = 406
+        Top = 17
+        Caption = #1054#1073#1093#1074#1072#1090' '#1085#1072' '#1094#1077#1085#1072#1090#1072' '#1086#1090':'
+      end
+      object edMinValue: TcxObjectSpinEdit
+        Left = 516
+        Top = 16
+        Properties.AssignedValues.DisplayFormat = True
+        Properties.AssignedValues.MinValue = True
+        Properties.ReadOnly = False
+        Properties.ValueType = vtInt
+        StyleFocused.Color = clInfoBk
+        TabOrder = 2
+        Value = 0
+        ReadOnly = False
+        PropUpdateMethod = oumOnExit
+        NullValue = '-1'
+        Width = 58
+      end
+      object edMaxValue: TcxObjectSpinEdit
+        Left = 596
+        Top = 16
+        Properties.AssignedValues.DisplayFormat = True
+        Properties.AssignedValues.EditFormat = True
+        Properties.MaxValue = 10000.000000000000000000
+        Properties.MinValue = 1.000000000000000000
+        Properties.ReadOnly = False
+        Properties.ValueType = vtInt
+        StyleFocused.Color = clInfoBk
+        TabOrder = 3
+        Value = 1
+        ReadOnly = False
+        PropUpdateMethod = oumOnExit
+        NullValue = '-1'
+        Width = 58
+      end
     end
   end
   object cxSplitter: TcxSplitter
     Left = 329
     Top = 42
     Width = 8
-    Height = 705
+    Height = 653
     HotZoneClassName = 'TcxXPTaskBarStyle'
     HotZone.SizePercent = 52
     Control = pnlG1Pad
+  end
+  object lbMaxValue: TcxLabel
+    Left = 914
+    Top = 60
+    Caption = #1076#1086':'
   end
   object AL1: TActionList
     Images = ilImages
@@ -184,6 +227,11 @@ object MainF: TMainF
           BeginGroup = True
           Visible = True
           ItemName = 'btnPrint'
+        end
+        item
+          BeginGroup = True
+          Visible = True
+          ItemName = 'btnExp'
         end>
       OneOnRow = True
       Row = 0
@@ -202,6 +250,12 @@ object MainF: TMainF
       Category = 0
       SyncImageIndex = False
       ImageIndex = 4
+    end
+    object btnExport: TdxBarLargeButton
+      Caption = 'Export...'
+      Category = 0
+      Visible = ivAlways
+      LargeImageIndex = 81
     end
     object btnOpen: TdxBarLargeButton
       Action = actOpen
@@ -271,6 +325,7 @@ object MainF: TMainF
       Hint = 'MS Excel'
       Visible = ivAlways
       ImageIndex = 81
+      OnClick = btnExportClick
     end
     object dxBarButton2: TdxBarButton
       Caption = 'New Button'
@@ -301,6 +356,7 @@ object MainF: TMainF
       Hint = 'HTML'
       Visible = ivAlways
       ImageIndex = 81
+      OnClick = btnExportClick
     end
     object btnExpToXML: TdxBarButton
       Tag = 3
@@ -309,6 +365,7 @@ object MainF: TMainF
       Hint = 'XML'
       Visible = ivAlways
       ImageIndex = 81
+      OnClick = btnExportClick
     end
     object btnExpToTXT: TdxBarButton
       Tag = 4
@@ -317,6 +374,7 @@ object MainF: TMainF
       Hint = 'Text file'
       Visible = ivAlways
       ImageIndex = 81
+      OnClick = btnExportClick
     end
     object dxBarLargeButton1: TdxBarLargeButton
       Caption = 'New Button'
@@ -329,6 +387,18 @@ object MainF: TMainF
       Category = 0
       Hint = 'New Button'
       Visible = ivAlways
+    end
+    object cxBarEditItem1: TcxBarEditItem
+      Caption = 'New Item'
+      Category = 0
+      Hint = 'New Item'
+      Visible = ivAlways
+      PropertiesClassName = 'TcxButtonEditProperties'
+      Properties.Buttons = <
+        item
+          Default = True
+          Kind = bkEllipsis
+        end>
     end
   end
   object OpenDialog: TOpenDialog
@@ -4701,6 +4771,9 @@ object MainF: TMainF
       C007C0003FFFE007C00FC009FFFFF81F00000000000000000000000000000000
       000000000000}
   end
+  object PrintDialog: TPrintDialog
+    Left = 424
+  end
   object dbMostPriceList: TmySQLDatabase
     Connected = True
     DatabaseName = 'most_price_list'
@@ -4719,7 +4792,7 @@ object MainF: TMainF
     Left = 499
   end
   object XMLDocument: TXMLDocument
-    Left = 889
+    Left = 873
     Top = 1
     DOMVendorDesc = 'MSXML'
   end
@@ -4731,6 +4804,6 @@ object MainF: TMainF
     Database = dbMostPriceList
     SQL.Strings = (
       'SELECT * FROM ExchangeRates;')
-    Left = 954
+    Left = 930
   end
 end

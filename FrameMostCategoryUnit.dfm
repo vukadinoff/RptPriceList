@@ -41,8 +41,8 @@ object FrameMostCategory: TFrameMostCategory
   end
   object qryCategory: TmySQLQuery
     Database = MainF.dbMostPriceList
-    Left = 16
-    Top = 64
+    Left = 488
+    Top = 48
   end
   object dsCategory: TDataSource
     DataSet = qryCategory

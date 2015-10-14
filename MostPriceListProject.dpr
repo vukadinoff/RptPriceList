@@ -2,8 +2,9 @@ program MostPriceListProject;
 
 uses
   Forms,
-  MainFUnit in 'MainFUnit.pas',
+  MainFUnit in 'MainFUnit.pas' {MainF},
   FrameMostCategoryUnit in 'FrameMostCategoryUnit.pas' {FrameMostCategory: TFrame},
+  MLDMS_CommonExportsUnit in 'Units\MLDMS_CommonExportsUnit.pas',
   FrameMostProductsUnit in 'FrameMostProductsUnit.pas' {FrameMostProducts: TFrame},
   ExchangeRatesFUnit in 'ExchangeRatesFUnit.pas' {ExchangeRatesF},
   DataModule in 'Units\DataModule.pas' {DM: TDataModule},
